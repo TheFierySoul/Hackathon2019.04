@@ -23,9 +23,8 @@
         $count = mysqli_num_rows($result);
         if ($count > 0) {
             fail("Account with this email already exists.");
-            $_SESSION['message'] = 'Account with this email already exists.';
         }
-        $sql = "INSERT INTO `users` (`username`, `email`, `password`, `client_voted`, `deliv_voted`)
+        $sql = "INSERT INTO `users` (`username`, `email`, `password`)
     VALUES ('$user', '$loweremail', '$password')";
         if ($conn->query($sql) === TRUE) {
             $req = "SELECT * FROM `users` WHERE `email`='$loweremail'";
@@ -41,7 +40,7 @@
             }
 
         } else {
-            fail("Error: " . $sql . "<br>" . $conn->error);
+            fail("Error: " . $sql . " " . $conn->error);
         }
         $database->closeConnection();
     }
